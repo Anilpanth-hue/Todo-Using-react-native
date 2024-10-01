@@ -1,121 +1,122 @@
-import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-// import { IconButton } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
-// import { IconButton } from 'react-native-paper';
+import { Alert, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Fallback from '../components/Fallback';
 
-
-
-console.log(Date.now().toString());
-
-
-
 const TodoScreen = () => {
-  // Init local states
-  const[todo, setTodo] = useState("");
-  const[todoList, setTodoList] = useState([]);
-  const[editedTodo, setEditedTodo] = useState(null);
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
+  const [editedTodo, setEditedTodo] = useState(null);
 
-
-  //Handle Add todo
   const handleAddTodo = () => {
-    //structure of a single todo item
-    
-    if(todo === ""){
-      return; //early return just like returning in void 
-    }
-
-    setTodoList([...todoList, {id: Date.now().toString(), title: todo }])
+    if (todo === "") return;
+    setTodoList([...todoList, { id: Date.now().toString(), title: todo }]);
     setTodo("");
+  };
 
-  }
-  //deleting items
   const handleDeleteTodo = (id) => {
-    const updateTodoList = todoList.filter((todo) => todo.id !== id)
+    const updatedTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(updatedTodoList);
+  };
 
-    setTodoList(updateTodoList);
-  }
-
-  //Handle Edit todo button
   const handleEditTodo = (todo) => {
     setEditedTodo(todo);
     setTodo(todo.title);
-  }
-  //handle update
-  const handleUpdateTodo = () => {
-    const updatedTodos = todoList.map((item)=>{
-      if(item.id === editedTodo.id){
-        return {...item, title: todo}
-      }
-      return item
+  };
 
-    })
+  const handleUpdateTodo = () => {
+    const updatedTodos = todoList.map((item) => {
+      if (item.id === editedTodo.id) {
+        return { ...item, title: todo };
+      }
+      return item;
+    });
     setTodoList(updatedTodos);
     setEditedTodo(null);
     setTodo("");
-  }
+  };
 
-  const renderTodos = ({item, index})=>{
-    return(
-      <View style={{
-        backgroundColor: "#1e90ff", 
-        borderRadius: 6, 
-        paddingHorizontal: 6, 
-        paddingVertical: 12, 
-        marginBottom: 12, 
-        flexDirection: "row", 
-        alignItems: "center",
-        shadowColor:"#000", 
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.8, 
-        shadowRadius: 3,
-      }}>
-        <Text style={{color: "#fff", fontSize: 20, fontWeight: 700, flex: 1}}>{item.title}</Text>
-    <Icon.Button name="pencil" backgroundColor="#1e90ff" onPress={()=>handleEditTodo(item)} />
-    <Icon.Button name="trash" backgroundColor="#1e90ff" onPress = {() => handleDeleteTodo(item.id)} />
+  const renderTodos = ({ item }) => {
+    return (
+      <View style={styles.todoItem}>
+        <Text style={styles.todoText}>{item.title}</Text>
+        <Icon.Button name="pencil" backgroundColor="#1e90ff" onPress={() => handleEditTodo(item)} />
+        <Icon.Button name="trash" backgroundColor="#1e90ff" onPress={() => handleDeleteTodo(item.id)} />
       </View>
-    )
-  }
+    );
+  };
+
   return (
-    <View style={{marginHorizontal: 12, padding: 12}}>
-
-      <TextInput 
-      style={{borderWidth:2, borderColor: "#1e90ff", borderRadius: 6, paddingVertical: 7, 
-        paddingHorizontal: 16,  
-      }}
-      placeholder='Add a Task'
-      value={todo}
-      onChangeText={(userText)=> setTodo(userText)}
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Add a Task"
+        value={todo}
+        onChangeText={(userText) => setTodo(userText)}
       />
-      {
-        editedTodo ? <TouchableOpacity 
-        style={{backgroundColor: "#000", borderRadius: 6, paddingVertical: 8, marginVertical: 34,    alignItems: "center"}}
-        onPress={() => handleUpdateTodo()}>
-          <Text style={{color: "#fff", fontWeight: 'bold', fontSize: 18}}>
-            Save
-          </Text>
-        </TouchableOpacity> :
-        <TouchableOpacity 
-        style={{backgroundColor: "#000", borderRadius: 6, paddingVertical: 8, marginVertical: 34,    alignItems: "center"}}
-        onPress={() => handleAddTodo()}>
-          <Text style={{color: "#fff", fontWeight: 'bold', fontSize: 18}}>
-            Add
-          </Text>
+      {editedTodo ? (
+        <TouchableOpacity style={styles.button} onPress={handleUpdateTodo}>
+          <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
-      }
-      {/* Render Todo list */}
-      <FlatList data={todoList} renderItem={renderTodos}/>
+      ) : (
+        <TouchableOpacity style={styles.button} onPress={handleAddTodo}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+      )}
 
-      {
-        todoList.length <= 0 && <Fallback />
-      }
+      <FlatList data={todoList} renderItem={renderTodos} />
+
+      {todoList.length <= 0 && <Fallback />}
     </View>
-  )
-}
+  );
+};
 
-export default TodoScreen
+export default TodoScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 12,
+    padding: 12,
+    backgroundColor: '#f8f8f8',
+  },
+  input: {
+    borderWidth: 2,
+    borderColor: '#1e90ff',
+    borderRadius: 6,
+    paddingVertical: 7,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  button: {
+    backgroundColor: '#000',
+    borderRadius: 6,
+    paddingVertical: 8,
+    alignItems: 'center',
+    marginBottom: 34,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  todoItem: {
+    backgroundColor: '#1e90ff',
+    borderRadius: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    marginBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+  },
+  todoText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: '700',
+    flex: 1,
+  },
+});
