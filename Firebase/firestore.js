@@ -21,9 +21,9 @@ export const getAllDocuments = async (collectionName) => {
     }
 };
 
-export const createDocument = async (collectionName, documentData) => {
+export const createDocument = async (collectionName, documentData, documentId = null) => {
     try {
-        const documentRef = rootCollection.collection(collectionName).doc();
+        const documentRef = rootCollection.collection(collectionName).doc(documentId);
         const serverTimestamp = firestore.FieldValue.serverTimestamp();
 
         const dataWithTimestamps = {
@@ -39,6 +39,7 @@ export const createDocument = async (collectionName, documentData) => {
         throw error;
     }
 };
+
 
 export const readDocumentData = async (collectionName, documentId) => {
     try {

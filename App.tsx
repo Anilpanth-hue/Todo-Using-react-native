@@ -37,7 +37,6 @@ const App = () => {
       onAuthStateChanged(user);
       if (user) {
         // Fetch Firestore data when user is logged in
-        fetchUserData(user.uid);
       }
     });
     return subscriber; // Unsubscribe on unmount
@@ -48,7 +47,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <NavigationContainer>
-        {user ? <MainStackNavigator userData={userData} /> : <AuthStackNavigator />}
+        {user ? <MainStackNavigator  /> : <AuthStackNavigator />}
       </NavigationContainer>
     </SafeAreaView>
   );

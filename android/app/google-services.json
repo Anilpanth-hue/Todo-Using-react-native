@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "706238226651",
-    "project_id": "todo-apk-e022e",
-    "storage_bucket": "todo-apk-e022e.appspot.com"
+    "project_number": "234667144381",
+    "project_id": "todo-78525",
+    "storage_bucket": "todo-78525.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:706238226651:android:e14fcc37c257ea8ee5acfe",
+        "mobilesdk_app_id": "1:234667144381:android:01bdbac84f2956d682f3d4",
         "android_client_info": {
           "package_name": "com.todoapk"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCxSCtmOG8Wb0oWtI0opBzdZ8sicb2Ksy4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:706238226651:android:8c93a0eb2cb6e21ae5acfe",
-        "android_client_info": {
-          "package_name": "todo.apk"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCxSCtmOG8Wb0oWtI0opBzdZ8sicb2Ksy4"
+          "current_key": "AIzaSyDOVHzeF8TpwOhJD8Jut6e6rNbpDfvXwFU"
         }
       ],
       "services": {

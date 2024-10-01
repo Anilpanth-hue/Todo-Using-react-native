@@ -4,13 +4,12 @@ import TodoScreen from '../src/screen/TodoScreen'; // Or other screens
 
 const Stack = createStackNavigator();
 
-const MainStackNavigator = ({ userData }) => {
+const MainStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Todo"
         component={TodoScreen}
-        initialParams={{ userData }} // Pass userData as initialParams
       />
     </Stack.Navigator>
   );
